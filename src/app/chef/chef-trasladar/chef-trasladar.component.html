@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-encabezado></app-encabezado>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h3>
+        Trasladar Chef
+      </h3>
+      <form [formGroup]="trasladarChefForm"
+        (ngSubmit)="trasladarChef(trasladarChefForm.value)">
+        <div class="row">
+          <div class="col col-">
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="restaurantes">Seleccionar restaurante</label>
+              <select
+                id="restaurantes"
+                formControlName="seleccionarRestaurante"
+                class="form-control"
+              >
+              <option [ngValue]="null" disabled>Selecciona un restaurante</option>
+              <option *ngFor="let restaurante of restaurantes" [ngValue]="restaurante.id">{{restaurante.nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col col-6"></div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" [disabled]="!trasladarChefForm.valid">Asociar</button>&nbsp;
+        <button type="button" class="btn btn-danger ml-3" (click)="cancelarTrasladoChef()">Cancelar</button>
+      </form>
+      <div *ngIf="message" class="alert" [ngClass]="{'alert-success': successMessage, 'alert-danger': !successMessage}">
+        {{ message }}
+      </div>
+    </main>
+  </div>
+</div>

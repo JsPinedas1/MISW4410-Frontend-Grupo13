@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-encabezado></app-encabezado>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="row">
+        <div class="col col-12">
+          <div class="card" style="width: 100%">
+            <div class="card-header creacion">
+              Mis restaurantes <button type="button" class="btn btn-warning" (click)="crearRestaurante()"><i class="bi bi-plus-circle"></i></button>
+            </div>
+            <table class="table">
+              <thead class="encabezado">
+                <th>Nombre</th>
+                <th>Acciones</th>
+                <th>Chefs</th>
+              </thead>
+              <tbody class="cuerpo">
+                <tr *ngFor="let restaurante of restaurantes">
+                  <td>{{restaurante.nombre}}</td>
+                  <td>
+                    <button [disabled]="false" type="button" class="btn btn-primary" (click)="editarRestaurante(restaurante.id)"><i class="bi bi-pencil"></i></button>&nbsp;
+                    <button [disabled]="false" type="button" class="btn btn-danger" (click)="eliminarRestaurante(restaurante.id)"><i class="bi bi-trash"></i></button>&nbsp;
+                    <button *ngIf="rol === 'Administrador'" [disabled]="false" type="button" class="btn btn-secondary custom-margin" (click)="verMenus()">Ver menús</button>
+                  </td>
+                  <td>
+                    <form
+                      [formGroup]="chefForm"
+                    >
+                      <ng-container *ngIf="restaurante?.chefs?.length == 0;else content" formArrayName="chefs">
+                        <ng-container *ngFor="let lineaForm of chefsSubForm.controls; let index = index">
+                          <div [formGroupName]="index">
+                            <div class="row">
+                              <div class="form-group row">
+                                <div class="col-sm-6">
+                                  <label for="nombre">Nombre</label>
+                                  <input
+                                    id="nombre"
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="nombre"
+                                  />
+                                  <div class="alert alert-danger alert-dismissible fade show"
+                                      *ngIf="
+                                        lineaForm.get('nombre')!.hasError('required') &&
+                                        lineaForm.get('nombre')!.touched
+                                      "
+                                    >
+                                    Contenido requerido
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <label for="usuario">Usuario</label>
+                                  <input
+                                    id="usuario"
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="usuario"
+                                  />
+                                  <div class="alert alert-danger alert-dismissible fade show"
+                                    *ngIf="
+                                      lineaForm.get('usuario')!.hasError('required') &&
+                                      lineaForm.get('usuario')!.touched
+                                    "
+                                  >
+                                    Contenido requerido
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-sm-12">
+                                  <label for="contrasena">Contraseña</label>
+                                  <input
+                                    id="contrasena"
+                                    type="password"
+                                    class="form-control"
+                                    formControlName="contrasena"
+                                  />
+                                  <div class="alert alert-danger alert-dismissible fade show"
+                                    *ngIf="
+                                      lineaForm.get('contrasena')!.hasError('required') &&
+                                      lineaForm.get('contrasena')!.touched
+                                    "
+                                  >
+                                    Contenido requerido
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row"></div>
+                              &nbsp;
+                              <div class="row">
+                                <div class="col">
+                                  <button type="submit" class="btn btn-primary" [disabled]="!lineaForm.valid" (click)="crearChefPorPrimeraVez(restaurante.id, lineaForm.value)">Crear</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #content>
+                        <div class="row" *ngFor="let chef of restaurante.chefs">
+                          <div class="col col-5">{{chef.nombre}}</div>
+                          <div class="col col-7">
+                            <button [disabled]="false" type="button" (click)="editarChef(chef.nombre, chef.id, restaurante.id)" class="btn btn-primary"><i class="bi bi-pencil"></i></button>&nbsp;
+                            <button [disabled]="false" type="button" (click)="eliminarChef(chef.id)" class="btn btn-danger"><i class="bi bi-trash"></i></button>&nbsp;
+                            <button [disabled]="false" type="button" (click)="trasladarChef(restaurante.id, chef.nombre, chef.id)" class="btn btn-success">Trasladar</button>
+                          </div>
+                          &nbsp;
+                        </div>
+                        <div class="row justify-content-center">
+                          <div class="col"></div>
+                          <div class="col-10">
+                            <button type="button" (click)="crearChef(restaurante.id)" class="btn btn-info" style="width:100%"><i class="bi bi-plus-circle"></i></button>
+                          </div>
+                          <div class="col"></div>
+                        </div>
+                      </ng-template>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="message" class="alert" [ngClass]="{'alert-success': successMessage, 'alert-danger': !successMessage}">
+              {{ message }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+

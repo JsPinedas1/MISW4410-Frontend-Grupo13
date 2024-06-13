@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+<app-encabezado></app-encabezado>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<div class="row">
+  <div class="col col-12">
+    <div class="card" style="width: 100%;">
+      <div class="card-header">
+        Menú <button type="button" class="btn btn-warning" (click)="crearMenus()"><i class="bi bi-plus-circle"></i></button>
+      </div>
+      <table class="table" border="1">
+        <thead>
+          <th>Nombre</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let menu of menus">
+            <td>{{menu.nombre}}</td>
+            <td>{{menu.fechainicio}}</td>
+            <td>{{menu.fechafinal}}</td>
+            <td>
+              <button [disabled]="false" type="button" class="btn btn-primary" (click)="editarMenu(menu.id_menu)"><i class="bi bi-pencil"></i></button>&nbsp;
+              <button [disabled]="false" type="button" class="btn btn-danger" (click)="borrarMenu(menu.id_menu)"><i class="bi bi-trash"></i></button>&nbsp;
+              <button [disabled]="false" type="button" class="btn btn-success" (click)="verCompras(menu.id_menu)">Ver compras</button>&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</main>
+</div>
+</div>

@@ -1,0 +1,318 @@
+<div *ngIf="loading">
+  <div class="spinner">
+    <img src="assets/img/spinner.gif"/>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <app-encabezado></app-encabezado>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h3>Nuevo restaurante</h3>
+      <form
+        [formGroup]="restauranteForm"
+        (ngSubmit)="!restauranteForm.invalid && crearRestaurante(restauranteForm.value)"
+      >
+        <div class="row">
+          <div class="col col-6">
+            <!-- Nombre -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="nombre">Nombre</label>
+              <input
+                novalidate
+                id="nombre"
+                class="form-control"
+                formControlName="nombre"
+                placeholder="Nombre"
+                maxlength="255"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  restauranteForm.get('nombre')!.hasError('required') &&
+                  restauranteForm.get('nombre')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="restauranteForm.get('nombre')!.hasError('minlength')"
+              >
+                El nombre debe tener al menos tres caracteres.
+              </div>
+            </div>
+            <!-- Direccion -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="direccion">Direccion</label>
+              <input
+                novalidate
+                id="direccion"
+                class="form-control"
+                formControlName="direccion"
+                placeholder="Direccion"
+                maxlength="255"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  restauranteForm.get('direccion')!.hasError('required') &&
+                  restauranteForm.get('direccion')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="restauranteForm.get('direccion')!.hasError('minlength')"
+              >
+                La dirección debe tener al menos cinco caracteres.
+              </div>
+            </div>
+            <!-- Telefono -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="telefono">Teléfono</label>
+              <input
+                novalidate
+                id="telefono"
+                class="form-control"
+                formControlName="telefono"
+                placeholder="Telefono"
+                type="number"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  restauranteForm.get('telefono')!.hasError('required') &&
+                  restauranteForm.get('telefono')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="restauranteForm.get('telefono')!.hasError('minlength')"
+              >
+                El teléfono debe tener al menos siete caracteres.
+              </div>
+            </div>
+            <!-- Domicilio -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="domicilio">Domicilio</label>
+                &nbsp;
+              <mat-radio-group
+                id="domicilio"
+                [formControl]="domicilio"
+              >
+                <mat-radio-button
+                  *ngFor="let selector of selectores"
+                  [value]="selector['id']"
+                >
+                  {{selector["nombre"]}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <!-- Redes Sociales -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="redesSociales">Red social</label>
+              <input
+                novalidate
+                id="redesSociales"
+                class="form-control"
+                formControlName="redesSociales"
+                placeholder="Red social"
+                maxlength="255"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  restauranteForm.get('redesSociales')!.hasError('required') &&
+                  restauranteForm.get('redesSociales')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="restauranteForm.get('redesSociales')!.hasError('minlength')"
+              >
+                La red social debe tener al menos siete caracteres.
+              </div>
+            </div>
+            <!-- <div class="form-group mx-sm-3 mb-2">
+              <label for="redesSociales">Redes sociales</label>
+              <br />
+              <mat-form-field appearance="outline">
+                <mat-select
+                  id="redesSociales"
+                  [formControl]="redesSociales"
+                  placeholder="Redes sociales"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let redSocial of redesSocialesLista"
+                    [value]="redSocial['id']"
+                  >
+                    {{redSocial["nombre"]}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+            <!-- Tipos de Comida -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="tipo_comida">Tipo de comida</label>
+              <input
+                novalidate
+                id="tipo_comida"
+                class="form-control"
+                formControlName="tipo_comida"
+                placeholder="Tipo de comida"
+                maxlength="255"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  restauranteForm.get('tipo_comida')!.hasError('required') &&
+                  restauranteForm.get('tipo_comida')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="restauranteForm.get('tipo_comida')!.hasError('minlength')"
+              >
+                El tipo de comida debe tener al menos siete caracteres.
+              </div>
+            </div>
+            <!-- <div class="form-group mx-sm-3 mb-2">
+              <label for="tiposComida">Tipo de comida</label>
+              <br />
+              <mat-form-field appearance="outline">
+                <mat-select
+                  id="tiposComida"
+                  [formControl]="tiposComida"
+                  placeholder="Tipos de comida"
+                >
+                  <mat-option
+                    *ngFor="let tipoComida of tiposComidaLista"
+                    [value]="tipoComida['id']"
+                  >
+                    {{tipoComida["nombre"]}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+            <!-- Horarios -->
+            <div class="form-group mx-sm-3 mb-2">
+              <div class="horarioLabelsContainer">
+                <label for="horarios">Horarios de atención</label>
+                <label for="horarios">Hora Inicio</label>
+                <label for="horarios">Hora Fin</label>
+              </div>
+              <section
+                class="horarioContainer"
+                id="horario"
+                *ngFor ="let horario of horariosAtencion"
+              >
+                <div class="one">
+                  <mat-checkbox
+                    color="accent"
+                    class="check-margin"
+                    [value]="horario['id']"
+                    (change)="seleccionarHorarios($event)"
+                  >
+                    {{horario["nombre"]}}
+                  </mat-checkbox>
+                </div>
+                <div class="two">
+                  <input
+                    class="form-control"
+                    type="time"
+                    (change)="capturarHorarios($event, horario['id'], 'inicio')"
+                    [value]="horario['horaInicio']"
+                    [disabled]="horario['check']===false"
+                  />
+                </div>
+                <div class="three">
+                  <input
+                    class="form-control"
+                    type="time"
+                    (change)="capturarHorarios($event, horario['id'], 'fin')"
+                    [value]="horario['horaFin']"
+                    [disabled]="horario['check']===false"
+                  />
+                </div>
+              </section>
+            </div>
+            <!-- Consumir -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="domicilio">Consumir en el lugar</label>
+                &nbsp;
+              <mat-radio-group
+                id="consumo"
+                [formControl]="consumo"
+              >
+                <mat-radio-button
+                  *ngFor="let selector of selectores"
+                  [value]="selector['id']"
+                >
+                  {{selector["nombre"]}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <!-- Aplicaciones Moviles -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="aplicacionesMoviles">Aplicación móvil</label>
+              <input
+                novalidate
+                id="aplicacionesMoviles"
+                class="form-control"
+                formControlName="aplicacionesMoviles"
+                placeholder="Aplicacion movil"
+                maxlength="255"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  restauranteForm.get('aplicacionesMoviles')!.hasError('required') &&
+                  restauranteForm.get('aplicacionesMoviles')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="restauranteForm.get('aplicacionesMoviles')!.hasError('minlength')"
+              >
+                La aplicación móvil debe tener al menos siete caracteres.
+              </div>
+            </div>
+            <!-- <div class="form-group mx-sm-3 mb-2">
+              <label for="tiposComida">Aplicaciones asociadas</label>
+              <br />
+              <mat-form-field appearance="outline">
+                <mat-select
+                  id="aplicacionMovil"
+                  [formControl]="aplicacionesMoviles"
+                  placeholder="Aplicaciones moviles"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let aplicacionMovil of aplicacionesMovilesLista"
+                    [value]="aplicacionMovil['id']"
+                  >
+                    {{aplicacionMovil["nombre"]}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+          </div>
+        </div>
+          &nbsp;
+        <button type="submit" class="btn btn-primary" [disabled]="!restauranteForm.valid">Crear</button>
+          &nbsp;
+        <button type="button" class="btn btn-danger ml-3" (click)="cancelarRestaurante()">Cancelar</button>
+      </form>
+    </main>
+  </div>
+</div>

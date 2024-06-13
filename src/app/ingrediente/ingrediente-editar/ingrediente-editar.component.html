@@ -1,0 +1,147 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-encabezado></app-encabezado>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h3>
+        Editando ingrediente: {{ingredienteForm.get('nombre').value}}
+      </h3>
+
+      <form
+      [formGroup]="ingredienteForm"
+      (ngSubmit)="!ingredienteForm.invalid && editarIngrediente(ingredienteForm.value)"
+      >
+        <div class="row">
+          <div class="col col-6">
+            <!--Nombre-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="nombre">Nombre</label>
+              <input
+                novalidate
+                id="nombre"
+                class="form-control"
+                formControlName="nombre"
+                placeholder="Nombre"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  ingredienteForm.get('nombre')!.hasError('required') &&
+                  ingredienteForm.get('nombre')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="ingredienteForm.get('nombre')!.hasError('minlength')"
+              >
+                El contenido es muy corto, debe tener al menos dos caracteres.
+              </div>
+            </div>
+
+            <!--Unidad-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="apellido">Unidad</label>
+              <input
+                novalidate
+                id="unidad"
+                class="form-control"
+                formControlName="unidad"
+                placeholder="Unidad de medida"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  ingredienteForm.get('unidad')!.hasError('required') &&
+                  ingredienteForm.get('unidad')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="ingredienteForm.get('unidad')!.hasError('minlength')"
+              >
+                El contenido es muy corto, debe tener al menos dos caracteres.
+              </div>
+            </div>
+
+            <!--Valor unitario-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="descripcion">Valor unitario</label>
+              <input
+                novalidate
+                id="costo"
+                type="number"
+                class="form-control"
+                formControlName="costo"
+                placeholder="Costo"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  ingredienteForm.get('costo')!.hasError('required') &&
+                  ingredienteForm.get('costo')!.touched
+                "
+              >
+                Por favor diligencie este campo
+              </div>
+            </div>
+
+            <!--Sitio de compra-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="nombre">Sitio de compra</label>
+              <input
+                novalidate
+                id="sitio"
+                class="form-control"
+                formControlName="sitio"
+                placeholder="Tienda / Supermercado / Lugar"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  ingredienteForm.get('sitio')!.hasError('required') &&
+                  ingredienteForm.get('sitio')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="ingredienteForm.get('sitio')!.hasError('minlength')"
+              >
+                El contenido es muy corto, debe tener al menos dos caracteres.
+              </div>
+            </div>
+
+            <!--Calorías por unidad-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="talla">Calorías por unidad</label>
+              <input
+                novalidate
+                id="calorias"
+                type="number"
+                class="form-control"
+                formControlName="calorias"
+                placeholder="Calorias"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  ingredienteForm.get('calorias')!.hasError('required') &&
+                  ingredienteForm.get('calorias')!.touched
+                "
+              >
+                Por favor diligencie este campo
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!ingredienteForm.valid">Editar</button>&nbsp;
+        <button type="button" class="btn btn-danger ml-3" (click)="cancelarIngrediente()">Cancelar</button>
+      </form>
+    </main>
+  </div>
+</div>

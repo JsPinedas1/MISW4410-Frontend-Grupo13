@@ -1,0 +1,33 @@
+name: Pruebas unitarias FrontEnd
+on:
+  push:
+    branches: [ RE01 ] 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+          matrix:
+            node-version: [16.x]
+
+    steps:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v2
+
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2.5.2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: npm install
+      run: npm install --force
+
+    - name: angular install
+      run: npm install -g @angular/cli@15.0.3
+
+    - name: Ejecutar Pruebas
+      id: ejecutar-pruebas
+      run: |
+          npm run test
+          npm run build

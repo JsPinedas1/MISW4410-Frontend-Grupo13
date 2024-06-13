@@ -1,0 +1,65 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900);
+
+h1,
+p,
+a{
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato';
+}
+
+h1 {
+  font-size: 2.8em;
+  font-weight: 800;
+}
+
+p {
+  font-size: 1.1em;
+  font-weight: 100;
+  letter-spacing: 5px;
+}
+
+.header {
+  background: #33cccc;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.btn-bgstroke {
+  font-size: 20px;
+  display: inline-block;
+  border: 1px solid white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 300;
+  margin-top: 30px;
+}
+
+.btn-bgstroke:hover {
+  background-color: white;
+  color: #33cccc;
+}
+
+.imagen {
+  margin-top: -120px;
+  -moz-transform:scale(0.2);
+  -webkit-transform:scale(0.2);
+  transform:scale(0.2);
+  margin-bottom: -160px;
+}
+
+.logo {
+  grid-column: 4;
+  grid-row: 1;
+  float: right;
+}
+
+.titulo {
+  margin-top: 30px;
+  grid-column: 1;
+  grid-row: 1;
+}

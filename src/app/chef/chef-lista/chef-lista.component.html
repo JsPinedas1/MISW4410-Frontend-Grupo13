@@ -1,0 +1,25 @@
+<app-encabezado></app-encabezado>
+<div class="row">
+  <div class="col col-12">
+    <div class="card" style="width: 100%;">
+      <div class="card-header">
+        Chefs <button type="button" class="btn btn-warning" (click)="crearChefs()"><i class="bi bi-plus-circle"></i></button>
+      </div>
+      <table class="table" border="1">
+        <thead>
+          <th>Chef</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chef of chefs">
+            <td>{{chef.nombre}}</td>
+            <td>
+              <button [disabled]="false" type="button" class="btn btn-primary" (click)="editarChef(chef.nombre, chef.id)"><i class="bi bi-pencil"></i></button>&nbsp;
+              <button [disabled]="false" type="button" class="btn btn-danger" (click)="eliminarChef(chef.id)"><i class="bi bi-trash"></i></button>&nbsp;
+              <button [disabled]="false" type="button" class="btn btn-success" (click)="trasladarChef(chef.nombre, chef.id)">Trasladar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+</div>

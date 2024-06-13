@@ -1,0 +1,11 @@
+#sidebar {
+  position: fixed;
+  height: 100%;
+  width: 230px;
+  padding: 20px;
+}
+
+#sidebar .nav-link {
+  padding: 10px;
+  text-align: center;
+}

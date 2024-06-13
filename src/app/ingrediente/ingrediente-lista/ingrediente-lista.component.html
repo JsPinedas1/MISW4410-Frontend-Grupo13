@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-encabezado></app-encabezado>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="row">
+        <div class="col col-12">
+          <div class="card" style="width: 100%;">
+            <div class="card-header creacion">
+              Ingredientes <button type="button" class="btn btn-warning" (click)="crearIngrediente()"><i class="bi bi-plus-circle"></i></button>
+            </div>
+            <table class="table" border="1">
+              <thead class="encabezado">
+                <th>Ingrediente</th>
+                <th>Unidad</th>
+                <th>Valor unitario</th>
+                <th>Calorías/unidad</th>
+                <th>Sitio de compra</th>
+                <th>Restaurante</th>
+                <th>Acciones</th>
+              </thead>
+              <tbody class="cuerpo">
+                <tr *ngFor="let ingrediente of ingredientes">
+                  <td>{{ingrediente.nombre}}</td>
+                  <td>{{ingrediente.unidad}}</td>
+                  <td>{{ingrediente.costo | number:'1.2-2'}}</td>
+                  <td>{{ingrediente.calorias | number:'1.2-2'}}</td>
+                  <td>{{ingrediente.sitio}}</td>
+                  <td>{{ingrediente.restaurante}}</td>
+                  <td>
+                    <button [disabled]="false" type="button" class="btn btn-primary" (click)="editarIngrediente(ingrediente.id)"><i class="bi bi-pencil"></i></button>&nbsp;
+                    <button [disabled]="false" type="button" class="btn btn-danger" (click)="borrarIngrediente(ingrediente.id)"><i class="bi bi-trash"></i></button>&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            </div>
+        <!--div class="col col-8">
+          <div *ngIf="elegida">
+            <div class="card" style="width: 100%;">
+              <div class="card-body">
+                <h5 class="card-title">{{personaElegida.nombre}} {{personaElegida.apellido}}</h5>
+                <p class="card-text" *ngIf="personaElegida">
+                  <app-persona-detalle [personaDetalle]="personaElegida"></app-persona-detalle>
+                  <app-entrenamiento-persona-lista [entrenamientos]="entrenamientos" [personaDetalle]="personaElegida"></app-entrenamiento-persona-lista>          </p>
+              </div>
+            </div>
+          </div>
+        </div-->
+      </div>
+    </main>
+  </div>
+</div>

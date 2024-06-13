@@ -1,0 +1,29 @@
+name: Despliegue Heroku Develop
+on:
+  push:
+    branches: [ develop ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v2
+
+    - name: Configuración de entorno
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.20'
+
+    - name: Limpiear Node Modules
+      run: rm -rf node_modules
+
+    - name: Limpiar package-lock
+      run: rm -f package-lock.json
+
+    - name: Instalar dependencias
+      run: |
+          echo "$environment"
+          npm i --force
+      env:
+          environment: development

@@ -1,0 +1,78 @@
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th style="text-align: right;">Cantidad de personas: </th>
+      <td><form
+        [formGroup]="porcionForm"
+        (ngSubmit)="!porcionForm.invalid && actualizarFactor(porcionForm.get('porcion').value)"
+       >
+        <!--Cantidad de personas-->
+        <div class="row">
+          <div class="col col-6">
+            <div class="form-group mx-sm-3 mb-2">
+              <input
+                novalidate
+                id="porcion"
+                type="number"
+                class="form-control"
+                formControlName="porcion"
+                placeholder="Cantidad de personas"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  porcionForm.get('porcion')!.hasError('required') &&
+                  porcionForm.get('porcion')!.touched
+                "
+              >
+                Por favor diligencie este campo
+              </div>
+            </div>
+              </div>
+          <div class="col col-6">
+            <button type="submit" class="btn btn-primary" [disabled]="!porcionForm.valid">Calcular</button>
+          </div>
+        </div>
+      </form>
+       </td>
+    </tr>
+    <tr>
+      <th style="text-align: right;">Calorías por porción: </th>
+      <td>{{caloriasPorcion() | number:'1.2-2'}}</td>
+    </tr>
+    <tr>
+      <th style="text-align: right;">Costo aproximado de preparación: </th>
+      <td>{{costoPreparacion()}}</td>
+    </tr>
+    <tr>
+      <th style="text-align: right;">Tiempo aproximado de preparación: </th>
+      <td>{{recetaDetalle.duracion * factor | number:'1.2-2'}}</td>
+    </tr>
+  </tbody>
+  <br />
+</table>
+
+<h5>Ingredientes</h5>
+<br/>
+<table class="table table-bordered" border="1">
+  <thead>
+    <th>Ingrediente</th>
+    <th>Cantidad</th>
+    <th>Unidad</th>
+    <th>Valor unitario</th>
+    <th>Sitio de compra</th>
+    <th>Calorías/Porción</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let recetaIngrediente of recetaDetalle.ingredientes">
+      <td>{{recetaIngrediente.ingrediente.nombre}}</td>
+      <td>{{recetaIngrediente.cantidad * factor | number:'1.2-2'}}</td>
+      <td style="text-align: center;">{{recetaIngrediente.ingrediente.unidad}}</td>
+      <td style="text-align: center;">{{recetaIngrediente.ingrediente.costo * factor}}</td>
+      <td style="text-align: center;">{{recetaIngrediente.ingrediente.sitio}}</td>
+      <td>{{recetaIngrediente.ingrediente.calorias | number:'1.2-2'}}</td>
+    </tr>
+  </tbody>
+</table>
+<h5>Preparación</h5>
+<div [innerHTML]="recetaDetalle.preparacion"></div>

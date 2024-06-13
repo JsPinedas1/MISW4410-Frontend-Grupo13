@@ -1,0 +1,188 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-encabezado></app-encabezado>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h3>
+        Nueva receta
+      </h3>
+
+      <form
+      [formGroup]="recetaForm"
+      (ngSubmit)="!recetaForm.invalid && crearReceta(recetaForm.value)"
+      >
+        <div class="row">
+          <div class="col col-">
+            <!--Nombre-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="nombre">Nombre</label>
+              <input
+                novalidate
+                id="nombre"
+                class="form-control"
+                formControlName="nombre"
+                placeholder="Nombre"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  recetaForm.get('nombre')!.hasError('required') &&
+                  recetaForm.get('nombre')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="recetaForm.get('nombre')!.hasError('minlength')"
+              >
+                El contenido es muy corto, debe tener al menos dos caracteres.
+              </div>
+            </div>
+
+            <!--Duración-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="duracion">Tiempo de preparación en horas</label>
+              <input
+                novalidate
+                id="duracion"
+                type="number"
+                class="form-control"
+                formControlName="duracion"
+                placeholder="Tiempo de preparación en horas"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  recetaForm.get('duracion')!.hasError('required') &&
+                  recetaForm.get('duracion')!.touched
+                "
+              >
+                Por favor diligencie este campo
+              </div>
+            </div>
+
+            <!--Porción-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="porcion">Número de personas</label>
+              <input
+                novalidate
+                id="porcion"
+                type="number"
+                class="form-control"
+                formControlName="porcion"
+                placeholder="Número de personas"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  recetaForm.get('porcion')!.hasError('required') &&
+                  recetaForm.get('porcion')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+            </div>
+
+            <!--Preparación-->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="preparacion">Preparación</label>
+              <textarea
+                novalidate
+                id="preparacion"
+                class="form-control"
+                formControlName="preparacion"
+                placeholder="Preparación"
+                rows="8"
+              ></textarea>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  recetaForm.get('preparacion')!.hasError('required') &&
+                  recetaForm.get('preparacion')!.touched
+                "
+              >
+                Contenido requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="recetaForm.get('preparacion')!.hasError('minlength')"
+              >
+                El contenido es muy corto, debe tener al menos dos caracteres.
+              </div>
+            </div>
+          </div>
+          <div class="col col-6">
+            <!-- Ingredientes -->
+            <div class="form-group mx-sm-3 mb-2">
+              <h6>Ingredientes</h6>
+                <div class="row">
+                  <div class="row">
+                    <div class="col col-7">Ingrediente</div>
+                    <div class="col col-4">Cantidad</div>
+                    <div class="col col-1"></div>
+                  </div>
+                  <ng-container formArrayName="ingredientes">
+                    <ng-container *ngFor="let lineaForm of ingredientesSubForm.controls; let index = index">
+                      <div [formGroupName]="index">
+                        <div class="row">
+                          <div class="col col-7">
+                            <select
+                            formControlName="idIngrediente"
+                            class="form-control"
+                            >
+
+                            <option [ngValue]="null" disabled>Elegir ingrediente</option>
+                            <option *ngFor="let ingrediente of listaIngredientes" [ngValue]="ingrediente.id">{{ingrediente.nombre}} ({{ingrediente.unidad}})</option>
+                            </select>
+                            <div
+                              class="alert alert-danger alert-dismissible fade show"
+                              *ngIf="
+                                lineaForm.get('idIngrediente')!.hasError('required') &&
+                                lineaForm.get('idIngrediente')!.touched
+                              "
+                            >
+                              Contenido requerido
+                            </div>
+                          </div>
+                          <div class="col col-4">
+                            <input
+                            novalidate
+                            id="cantidad"
+                            type="number"
+                            class="form-control"
+                            formControlName="cantidad"
+                            placeholder="Cantidad"
+                            />
+                            <div
+                              class="alert alert-danger alert-dismissible fade show"
+                              *ngIf="
+                                lineaForm.get('cantidad')!.hasError('required') &&
+                                lineaForm.get('cantidad')!.touched
+                              "
+                            >
+                              Contenido requerido
+                            </div>
+                          </div>
+                          <div class="col col-1">
+                            <button type="button" class="btn btn-danger ml-3" (click)="eliminarIngrediente(index)"><i class="bi bi-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <br/>
+                <div class="row">
+                  <button type="button" class="btn btn-info ml-3" (click)="adicionarIngrediente()"><i class="bi bi-plus-circle"></i></button>
+
+                </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary" [disabled]="!recetaForm.valid">Crear</button>&nbsp;
+        <button type="button" class="btn btn-danger ml-3" (click)="cancelarReceta()">Cancelar</button>
+      </form>
+    </main>
+  </div>
+</div>

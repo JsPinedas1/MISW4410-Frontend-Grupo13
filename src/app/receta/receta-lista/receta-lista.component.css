@@ -1,0 +1,22 @@
+main {
+  margin-left: 230px;
+  padding: 15px;
+}
+
+.encabezado {
+  background-color: #2DB3E3;
+  text-align: center;
+}
+
+.creacion {
+  background-color: #2B7DD9;
+  color: white;
+}
+
+.cuerpo {
+  text-align: center;
+}
+
+.titulo {
+  font-size: medium;
+}
