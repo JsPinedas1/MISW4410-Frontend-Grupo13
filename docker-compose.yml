@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: misw4410-front
+    ports:
+      - "80:80"
